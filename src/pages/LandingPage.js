@@ -9,7 +9,6 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
     color: theme.palette.text.secondary,
   width:"100%",
-  height: "450px",
   display: "flex",
     alignContent: "center",
   justifyContent:"center"
