@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# Chats'R'Us 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Content:
+1.[Deployment](#Deployment)
 
-## Available Scripts
+2.[Description](#Description)
 
-In the project directory, you can run:
+3.[Screenshot](#Screenshot)
 
-### `npm start`
+4.[User Story](#User-Story)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+5.[Installation Instructions](#Installation-and-Usage)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+6.[Technologies](#Technologies)
 
-### `npm test`
+7.[License](#License)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+8.[Collaborators](#Collaborators)
 
-### `npm run build`
+9.[LICENSE](#LICENSE)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Deployment
+https://group-3-project-2.herokuapp.com/
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Description
+Chat ‘R’ Us is an application allows teams to communicate with each other both individually and as a group. You are able to see who is online in the chat room, previous messages. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Screenshot
+![screenshot](public/images/screenshot.jpeg)
 
-### `npm run eject`
+## User Story
+As a team leader,  I would like to have an online chat room which shows me who is online during work hours, save chat history to record team’s conversation so that I can communicate with my team and track conversation history effectively when we can’t have phone in the office and limited human contacts. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Installation and Usage
+### Step 1
+After cloning the repository in your local device, run <npm install> to install node modules in your local machine. Run <node server.js> to start the application locally in localhost 8080.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Step 2
+Sign up with your username, email address and password, it will redirect you to login page after creating account.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Step 3
+Log into the chat and chat with your colleages.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Technologies 
+* node.js
+* express
+* express-sessions
+* sequelize
+* socket.io
+* javascript
+* jquery
+* handlebars 
+* css
+* passport 
+* moment
+* bcrypt
+ 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Limmitation
+Due to time constraint, there're more features to add, such as able to send notification after signing up, updating my own profile, and wishing to delete my account. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Collaborators
+* [Laith Alwani](https://github.com/LaithAlwani)
+* [Michelle](https://github.com/mich3ll3e)
+* [Shawn Harvey](https://github.com/theharv1)
 
-### Code Splitting
+## LICENSE
+[![license](https://img.shields.io/github/license/DAVFoundation/captain-n3m0.svg?style=flat-square)](https://github.com/DAVFoundation/captain-n3m0/blob/master/LICENSE)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
