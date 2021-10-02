@@ -12,11 +12,14 @@ code {
     monospace;
 }
 
-.MuiButton-root{
+.btn{
   background: linear-gradient(45deg, #ff7b00 50%, #f8d406 90%);
-  color: white ;
+  color: white !important;
+  border: gray 1px solid !important;
 }
-
+.btn:hover{
+  background: linear-gradient(45deg, #ff7b00a2 50%, #f8d406ab 90%);
+}
 .imagesLP{
   width: 100%;
 }

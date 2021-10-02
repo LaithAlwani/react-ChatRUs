@@ -1,17 +1,17 @@
-import React from "react";
+import {Link} from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { Button, Card, Container, Grid, Paper } from "@mui/material";
-import { display } from "@mui/system";
+
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
-    color: theme.palette.text.secondary,
-  width:"100%",
+  color: theme.palette.text.secondary,
+  width: "100%",
   display: "flex",
-    alignContent: "center",
-  justifyContent:"center"
+  alignContent: "center",
+  justifyContent: "center",
 }));
 
 export default function LandingPage() {
@@ -33,20 +33,16 @@ export default function LandingPage() {
       >
         <h1>Chats 'R'Us</h1>
         <p>Work communication made easy</p>
-        <Button fullWidth className="button">
+        <Button fullWidth component={Link}  to="/chat" className="btn">
           Get Started
         </Button>
       </Container>
       <Container sx={{ textAlign: "center" }}>
-        <Grid container spacing={2} wrap>
+        <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <Item>
               <div>
-                <img
-                  src="/images/chat.png"
-                  alt=""
-                  className="imagesLP"
-                />
+                <img src="/images/chat.png" alt="" className="imagesLP" />
                 <h3 className="card-title">Real Time Chat</h3>
               </div>
             </Item>
@@ -54,11 +50,7 @@ export default function LandingPage() {
           <Grid item xs={12} md={4}>
             <Item>
               <div>
-                <img
-                  src="/images/password.jpg"
-                  alt=""
-                  className="imagesLP"
-                />
+                <img src="/images/password.jpg" alt="" className="imagesLP" />
                 <h3 className="card-title">Protected Password</h3>
               </div>
             </Item>
