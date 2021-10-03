@@ -39,7 +39,7 @@ export default function LandingPage() {
         </Button>
       </Container>
       <Container sx={{ textAlign: "center", marginBottom:"5rem" }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <Item>
               <div>

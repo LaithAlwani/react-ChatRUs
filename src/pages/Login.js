@@ -15,6 +15,7 @@ import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import GoogleIcon from '@mui/icons-material/Google';
 
 import { auth } from "../firebase/config"
 import {
@@ -78,7 +79,7 @@ export default function Login() {
       component="form"
       onSubmit={handleSubmit}
       noValidate
-      sx={{ margin: "1rem" }}
+      sx={{ margin: "1rem ", ["@media (min-width:768px)"]:{width:"50%", margin:"auto"} }}
     >
       <h2 className="mb-4 pt-3">LOGIN</h2>
       <TextField
@@ -129,7 +130,8 @@ export default function Login() {
       <Button type="submit" className="btn" fullWidth sx={{ m:"0.5rem 0" }}>
         Login
       </Button>
-      <Button  className="btn" fullWidth onClick={googleLogin}>
+      <Button className="googleBtn" fullWidth onClick={googleLogin}>
+        <GoogleIcon sx={{mr:1}} />
         Login in with Google
       </Button>
       <Typography variant="subtitle1" sx={{ m:"0.5rem 0" }}>
