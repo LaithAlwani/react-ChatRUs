@@ -11,12 +11,23 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+import { auth } from "../firebase/config"
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "@firebase/auth";
+import UserContext from "../utils/UserContext";
+
 export default function Login() {
+
+  let history = useHistory();
+  const {setUser} = useContext(UserContext)
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -30,8 +41,6 @@ export default function Login() {
     });
   };
 
- 
-
   const handleChange = (e) => {
     setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
   };
@@ -40,6 +49,30 @@ export default function Login() {
     e.preventDefault();
     console.log(loginInfo);
   };
+
+  const googleLogin = () => {
+    const provider = new GoogleAuthProvider();
+    auth.useDeviceLanguage();
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        const credential = GoogleAuthProvider.credentialFromResult(res);
+        const token = credential.accessToken;
+        setUser(res.user);
+        sessionStorage.setItem("currentUser", JSON.stringify(res.user));
+        history.push("/chat");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+      });
+  };
+
+
   return (
     <Box
       component="form"
@@ -96,7 +129,7 @@ export default function Login() {
       <Button type="submit" className="btn" fullWidth sx={{ m:"0.5rem 0" }}>
         Login
       </Button>
-      <Button  className="btn" fullWidth>
+      <Button  className="btn" fullWidth onClick={googleLogin}>
         Login in with Google
       </Button>
       <Typography variant="subtitle1" sx={{ m:"0.5rem 0" }}>
