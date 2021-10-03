@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import {Link} from "react-router-dom"
 import {
   Box,
   Button,
@@ -36,13 +37,13 @@ export default function Signup() {
   };
 
   const handleSubmit = (e) => {
-      e.preventDefault();
-      if (signupInfo.password === signupInfo.confirmPassword) {
-          console.log("Passowrds match");
-          console.log(signupInfo);
-      } else {
-        console.log("Error Passowrds don't match")
-      }
+    e.preventDefault();
+    if (signupInfo.password === signupInfo.confirmPassword) {
+      console.log("Passowrds match");
+      console.log(signupInfo);
+    } else {
+      console.log("Error Passowrds don't match");
+    }
   };
 
   return (
@@ -138,6 +139,9 @@ export default function Signup() {
       <Button type="submit" className="btn" fullWidth sx={{ m: "0.5rem 0" }}>
         Sign up
       </Button>
+      <Typography variant="subtitle1" sx={{ m: "0.5rem 0" }}>
+        Already have an Account! <Link to="/login">Login</Link>
+      </Typography>
     </Box>
   );
 }
