@@ -24,12 +24,13 @@ export default function LandingPage() {
           height: "500px",
           backgroundImage: `url("/images/backgorund.png")`,
           backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
           backgroundSize: "cover",
           transform: "skewY(-11deg)",
         }}
       ></Box>
       <Container
-        sx={{ textAlign: "center", margin: "5rem auto", width: "350px" }}
+        sx={{ textAlign: "center", margin: "5rem auto", width: "300px" }}
       >
         <h1>Chats 'R'Us</h1>
         <p>Work communication made easy</p>
@@ -38,7 +39,7 @@ export default function LandingPage() {
         </Button>
       </Container>
       <Container sx={{ textAlign: "center", marginBottom:"5rem" }}>
-        <Grid container spacing={4}>
+        <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
             <Item>
               <div>
