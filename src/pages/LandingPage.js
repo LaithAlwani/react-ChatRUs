@@ -33,11 +33,11 @@ export default function LandingPage() {
       >
         <h1>Chats 'R'Us</h1>
         <p>Work communication made easy</p>
-        <Button fullWidth component={Link}  to="/chat" className="btn">
+        <Button fullWidth component={Link}  to="/login" className="btn">
           Get Started
         </Button>
       </Container>
-      <Container sx={{ textAlign: "center" }}>
+      <Container sx={{ textAlign: "center", marginBottom:"5rem" }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <Item>

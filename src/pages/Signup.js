@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Navbar() {
+export default function Signup() {
     return (
         <div>
-            <span>Chats R Us</span>
+            Signup
         </div>
     )
 }
