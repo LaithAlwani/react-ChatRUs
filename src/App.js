@@ -6,6 +6,7 @@ import Chat from "./pages/Chat";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UserContext from "./utils/UserContext";
+import Profile from "./pages/Profile";
 
 function App() {
   const [user, setUser] = useState();
@@ -27,6 +28,7 @@ function App() {
               <Route path="/chat" component={Chat} />
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
+              <Route path="/profile" component={Profile} />
             </Switch>
           </Layout>
         </div>

@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 export default function Layout({ children }) {
   return (
     <>
-      <Box sx={{ minHeight: "100vh", marginBottom:"-55px"}}>
+      <Box sx={{ minHeight: "95vh", marginBottom:"-15px"}}>
         <Navbar />
         {children}
       </Box>
