@@ -55,7 +55,7 @@ export default function Signup() {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: signupInfo.username,
-            photoURL: "/images/user-image.png",
+            photoURL: "user-image.png",
           });
           setMessage("Sign up Compeleted!");
           setTimeout(() => {

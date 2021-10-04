@@ -43,7 +43,7 @@ export default function LandingPage() {
           <Grid item xs={12} md={4}>
             <Item>
               <div>
-                <img src="/images/chat.png" alt="" className="imagesLP" />
+                <img src="/images/chat-min.png" alt="" className="imagesLP" />
                 <h3 className="card-title">Real Time Chat</h3>
               </div>
             </Item>

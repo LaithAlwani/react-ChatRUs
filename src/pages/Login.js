@@ -6,6 +6,7 @@ import {
   TextField,
   InputAdornment,
   Typography,
+  Alert,
 } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -15,25 +16,26 @@ import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import GoogleIcon from '@mui/icons-material/Google';
+import GoogleIcon from "@mui/icons-material/Google";
 
-import { auth } from "../firebase/config"
+import { auth, storage } from "../firebase/config";
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "@firebase/auth";
 import UserContext from "../utils/UserContext";
+import { getDownloadURL, ref } from "@firebase/storage";
 
 export default function Login() {
-
   let history = useHistory();
-  const {setUser} = useContext(UserContext)
+  const { setUser } = useContext(UserContext);
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
     showPassword: false,
   });
+  const [message, setMessage] = useState("");
 
   const handleClickShowPassword = () => {
     setLoginInfo({
@@ -48,7 +50,24 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginInfo);
+    signInWithEmailAndPassword(auth, loginInfo.email, loginInfo.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const imageRef = ref(storage, `profile-images/${user.photoURL}`);
+        getDownloadURL(imageRef).then((imgURL) => {
+          user.photoURL = imgURL;
+          sessionStorage.setItem("currentUser", JSON.stringify(user));
+          setUser(user);
+          history.push("/chat");
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        setMessage("Incorrect Credentials");
+        setTimeout(() => {
+          setMessage("");
+        }, 2000);
+      });
   };
 
   const googleLogin = () => {
@@ -73,15 +92,18 @@ export default function Login() {
       });
   };
 
-
   return (
     <Box
       component="form"
       onSubmit={handleSubmit}
       noValidate
-      sx={{ margin: "1rem ", ["@media (min-width:768px)"]:{width:"50%", margin:"auto"} }}
+      sx={{
+        margin: "1rem ",
+        ["@media (min-width:768px)"]: { width: "50%", margin: "auto" },
+      }}
     >
       <h2 className="mb-4 pt-3">LOGIN</h2>
+      {message && <Alert severity="error">{message}</Alert>}
       <TextField
         id="input-with-icon-textfield"
         label="Email"
@@ -96,10 +118,10 @@ export default function Login() {
         onChange={handleChange}
         variant="outlined"
         fullWidth
-        sx={{ m:"0.5rem 0" }}
+        sx={{ m: "0.5rem 0" }}
       />
 
-      <FormControl sx={{ m:"0.5rem 0" }} variant="outlined" fullWidth>
+      <FormControl sx={{ m: "0.5rem 0" }} variant="outlined" fullWidth>
         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
         <OutlinedInput
           type={loginInfo.showPassword ? "text" : "password"}
@@ -108,10 +130,9 @@ export default function Login() {
           name="password"
           startAdornment={
             <InputAdornment position="start">
-                <LockIcon />
-              </InputAdornment>
+              <LockIcon />
+            </InputAdornment>
           }
-
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -127,17 +148,16 @@ export default function Login() {
         />
       </FormControl>
 
-      <Button type="submit" className="btn" fullWidth sx={{ m:"0.5rem 0" }}>
+      <Button type="submit" className="btn" fullWidth sx={{ m: "0.5rem 0" }}>
         Login
       </Button>
       <Button className="googleBtn" fullWidth onClick={googleLogin}>
-        <GoogleIcon sx={{mr:1}} />
+        <GoogleIcon sx={{ mr: 1 }} />
         Login in with Google
       </Button>
-      <Typography variant="subtitle1" sx={{ m:"0.5rem 0" }}>
-       Create a free Account! <Link to="/signup">sign up</Link>
+      <Typography variant="subtitle1" sx={{ m: "0.5rem 0" }}>
+        Create a free Account! <Link to="/signup">sign up</Link>
       </Typography>
-      
     </Box>
   );
 }
