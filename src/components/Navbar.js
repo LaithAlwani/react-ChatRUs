@@ -1,3 +1,4 @@
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -5,17 +6,28 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextsmsRoundedIcon from "@mui/icons-material/TextsmsRounded";
 import { Link } from "react-router-dom";
-import Login from "../pages/Login";
-import { Avatar } from "@mui/material";
+import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+import PersonIcon from '@mui/icons-material/Person';
 import { useContext } from "react";
 import UserContext from "../utils/UserContext";
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
   const handleLogout = () => {
     sessionStorage.removeItem("currentUser");
     setUser(null);
+    setAnchorEl(null);
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -34,25 +46,43 @@ export default function Navbar() {
           <Box sx={{ marginLeft: "auto" }}>
             {!user && (
               <Button component={Link} to="/login" color="inherit">
-                Login
+               <PersonIcon /> Login
               </Button>
             )}
             {user && (
               <>
-                <Button component={Link} to="/chat" color="inherit">
-                  Chat
-                </Button>
-                <Button component={Link} to="/profile">
-                  <Avatar src={user.photoURL} alt={user.displayName} />
-                </Button>
-                <Button
-                  component={Link}
-                  to="/"
-                  color="inherit"
-                  onClick={handleLogout}
+                <IconButton onClick={handleMenu}>
+                  <Avatar src={user.photoURL} alt={user.displayName[0]} />
+                </IconButton>
+                <Menu
+                  // id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
                 >
-                  Logout
-                </Button>
+                  <MenuItem component={Link} to="/chat" onClick={handleClose}>
+                    Chat
+                  </MenuItem>
+                  <MenuItem
+                    component={Link}
+                    to="/profile"
+                    onClick={handleClose}
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem component={Link} to="/" onClick={handleLogout}>
+                    Logout
+                  </MenuItem>
+                </Menu>
               </>
             )}
           </Box>

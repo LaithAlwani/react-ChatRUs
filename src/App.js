@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import LandingPage from "./pages/LandingPage";
@@ -7,17 +7,11 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UserContext from "./utils/UserContext";
 import Profile from "./pages/Profile";
+import NoMatch from "./pages/NoMatch";
 
 function App() {
   const [user, setUser] = useState();
 
-  useEffect(() => {
-    if (sessionStorage.getItem("currentUser")) {
-      setUser(JSON.parse(sessionStorage.getItem("currentUser")))
-    } else {
-      setUser(null);
-    }
-  },[])
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Router>
@@ -29,6 +23,7 @@ function App() {
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
               <Route path="/profile" component={Profile} />
+              <Route path="*" component={NoMatch} />
             </Switch>
           </Layout>
         </div>

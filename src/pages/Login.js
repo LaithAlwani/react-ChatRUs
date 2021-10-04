@@ -12,7 +12,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -48,6 +48,12 @@ export default function Login() {
     setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+    if (sessionStorage.getItem("currentUser")) {
+      history.push("/chat");
+    }
+  },[history])
+
   const handleSubmit = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, loginInfo.email, loginInfo.password)
@@ -74,9 +80,7 @@ export default function Login() {
     const provider = new GoogleAuthProvider();
     auth.useDeviceLanguage();
     signInWithPopup(auth, provider)
-      .then((res) => {
-        const credential = GoogleAuthProvider.credentialFromResult(res);
-        const token = credential.accessToken;
+      .then((res) => {        
         setUser(res.user);
         sessionStorage.setItem("currentUser", JSON.stringify(res.user));
         history.push("/chat");
@@ -84,11 +88,15 @@ export default function Login() {
       .catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
+        console.log(errorCode)
         const errorMessage = error.message;
+        console.log(errorMessage)
         // The email of the user's account used.
         const email = error.email;
+        console.log(email)
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(credential)
       });
   };
 

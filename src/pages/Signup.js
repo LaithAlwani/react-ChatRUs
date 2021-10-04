@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import {
   Box,
@@ -73,7 +73,13 @@ export default function Signup() {
     } else {
       console.log("Error Passowrds don't match");
     }
-  };
+    };
+    
+    useEffect(() => {
+        if (sessionStorage.getItem("currentUser")) {
+          history.push("/chat");
+        }
+      },[history])
 
   return (
     <Box
@@ -95,7 +101,6 @@ export default function Signup() {
         </Alert>
       )}
       <TextField
-        id="input-with-icon-textfield"
         label="Username"
         name="username"
         InputProps={{
@@ -111,7 +116,6 @@ export default function Signup() {
         sx={{ m: "0.5rem 0" }}
       />
       <TextField
-        id="input-with-icon-textfield"
         type="email"
         label="Email"
         name="email"
@@ -156,7 +160,6 @@ export default function Signup() {
       </FormControl>
 
       <TextField
-        id="input-with-icon-textfield"
         type="password"
         label="Confrim Password"
         name="confirmPassword"

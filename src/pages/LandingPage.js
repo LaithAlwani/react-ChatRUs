@@ -1,7 +1,9 @@
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import { Button, Card, Container, Grid, Paper } from "@mui/material";
+import { Button, Container, Grid, Paper } from "@mui/material";
+import { useContext, useEffect } from "react";
+import UserContext from "../utils/UserContext";
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -15,6 +17,16 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function LandingPage() {
+  let history = useHistory();
+  const { user, setUser } = useContext(UserContext);
+  useEffect(() => {
+    if (sessionStorage.getItem("currentUser") || user) {
+      setUser(JSON.parse(sessionStorage.getItem("currentUser")))
+      history.push("/chat");
+    } else {
+      setUser(null);
+    }
+  },[history, user, setUser])
   return (
     <>
       <Box
