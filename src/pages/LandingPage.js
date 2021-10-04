@@ -34,7 +34,7 @@ export default function LandingPage() {
           position: "relative",
           zIndex: "-1",
           height: "250px",
-          backgroundImage: `url("/images/backgorund.png")`,
+          backgroundImage: `url("/images/backgorund-min.png")`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",

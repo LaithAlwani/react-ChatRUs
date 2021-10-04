@@ -59,13 +59,13 @@ export default function Login() {
     signInWithEmailAndPassword(auth, loginInfo.email, loginInfo.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        const imageRef = ref(storage, `profile-images/${user.photoURL}`);
-        getDownloadURL(imageRef).then((imgURL) => {
-          user.photoURL = imgURL;
-          sessionStorage.setItem("currentUser", JSON.stringify(user));
-          setUser(user);
-          history.push("/chat");
-        });
+        // const imageRef = ref(storage, `profile-images/${user.photoURL}`);
+        // getDownloadURL(imageRef).then((imgURL) => {
+        //   user.photoURL = imgURL;
+        // });
+        sessionStorage.setItem("currentUser", JSON.stringify(user));
+        setUser(user);
+        history.push("/chat");
       })
       .catch((err) => {
         console.log(err);
