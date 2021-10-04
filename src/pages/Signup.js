@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import {Link} from "react-router-dom"
+import { Link, useHistory } from "react-router-dom";
 import {
   Box,
   Button,
@@ -8,6 +8,7 @@ import {
   TextField,
   InputAdornment,
   Typography,
+  Alert,
 } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -17,7 +18,11 @@ import LockIcon from "@mui/icons-material/Lock";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+import { auth } from "../firebase/config";
+import { createUserWithEmailAndPassword, updateProfile } from "@firebase/auth";
+
 export default function Signup() {
+  let history = useHistory();
   const [signupInfo, setSignupInfo] = useState({
     username: "",
     email: "",
@@ -25,6 +30,8 @@ export default function Signup() {
     confirmPassword: "",
     showPassword: false,
   });
+
+  const [message, setMessage] = useState("");
   const handleClickShowPassword = () => {
     setSignupInfo({
       ...signupInfo,
@@ -39,8 +46,30 @@ export default function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (signupInfo.password === signupInfo.confirmPassword) {
-      console.log("Passowrds match");
-      console.log(signupInfo);
+      createUserWithEmailAndPassword(
+        auth,
+        signupInfo.email,
+        signupInfo.password
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: signupInfo.username,
+            photoURL: "/images/user-image.png",
+          });
+          setMessage("Sign up Compeleted!");
+          setTimeout(() => {
+            setMessage("");
+            history.push("/login");
+          }, 2000);
+        })
+        .catch((error) => {
+          console.log(error);
+          setMessage("Email Already Exsists");
+          setTimeout(() => {
+            setMessage("");
+          }, 2000);
+        });
     } else {
       console.log("Error Passowrds don't match");
     }
@@ -57,6 +86,14 @@ export default function Signup() {
       }}
     >
       <h2 className="mb-4 pt-3">SIGN UP</h2>
+      {message && (
+        <Alert
+          severity={message === "Sign up Compeleted!" ? "success" : "error"}
+          sx={{ mt: 1 }}
+        >
+          {message}
+        </Alert>
+      )}
       <TextField
         id="input-with-icon-textfield"
         label="Username"

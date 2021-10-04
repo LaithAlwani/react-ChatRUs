@@ -21,7 +21,7 @@ export default function LandingPage() {
         sx={{
           position: "relative",
           zIndex: "-1",
-          height: "500px",
+          height: "250px",
           backgroundImage: `url("/images/backgorund.png")`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
