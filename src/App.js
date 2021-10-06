@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import LandingPage from "./pages/LandingPage";
@@ -11,6 +11,15 @@ import NoMatch from "./pages/NoMatch";
 
 function App() {
   const [user, setUser] = useState();
+
+  useEffect(() => {
+    if (sessionStorage.getItem("currentUser") || user) {
+      setUser(JSON.parse(sessionStorage.getItem("currentUser")))
+      
+    } else {
+      setUser(null);
+    }
+  }, [])
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

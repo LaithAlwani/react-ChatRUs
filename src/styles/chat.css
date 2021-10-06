@@ -1,0 +1,14 @@
+.chat-window{
+    margin-bottom: 2rem;
+    height: 65vh;
+    overflow: auto;
+}
+
+.chat-card{
+    background: orange !important;
+    margin: 1rem;
+    width: fit-content;
+    max-width: 80%;
+    padding: 1rem;
+}
+

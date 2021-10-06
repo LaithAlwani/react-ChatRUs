@@ -19,6 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function LandingPage() {
   let history = useHistory();
   const { user, setUser } = useContext(UserContext);
+
   useEffect(() => {
     if (sessionStorage.getItem("currentUser") || user) {
       setUser(JSON.parse(sessionStorage.getItem("currentUser")))
@@ -26,7 +27,8 @@ export default function LandingPage() {
     } else {
       setUser(null);
     }
-  },[history, user, setUser])
+  }, [history, user, setUser])
+  
   return (
     <>
       <Box
