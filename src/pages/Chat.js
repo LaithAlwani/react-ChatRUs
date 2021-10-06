@@ -34,11 +34,12 @@ export default function Chat() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { uid, photoURL } = auth.currentUser;
+    const { uid, displayName,photoURL } = auth.currentUser;
     addDoc(collection(db, "messages"), {
       text: message,
       createdAt: serverTimestamp(),
       uid,
+      username:displayName,
       photoURL,
     }).then((docRef) => {
       console.log("messages sent with id: " + docRef.id);
@@ -52,7 +53,6 @@ export default function Chat() {
     onSnapshot(q, (querySnapshot) => {
       const msgArr = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc);
         msgArr.push(doc.data());
       });
       setMessges(msgArr);
@@ -65,7 +65,7 @@ export default function Chat() {
       <Box className="chat-window">
         {messages.length > 0 &&
           messages.map((msg) => <Message key={msg.id} msg={msg} />)}
-        <div ref={scrollBottom}>here</div>
+        <div ref={scrollBottom} className="scrolAnch"></div>
       </Box>
       <Box
         component="form"

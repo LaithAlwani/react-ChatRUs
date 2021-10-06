@@ -1,6 +1,6 @@
 .chat-window {
   margin-bottom: 1rem;
-  max-height: 75vh;
+  height: 75vh;
   overflow: auto;
 }
 
@@ -13,7 +13,16 @@
 
 .received {
   background: linear-gradient(45deg, #ad82fd 50%, #e8afff 90%);
+  float:left;
+  clear:both;
 }
 .sent {
   background: linear-gradient(45deg, #ff7b00 50%, #f8d406 90%);
+  float:right;
+  clear:both;
+}
+
+.scrolAnch{
+    float: left;
+    clear:both;
 }
