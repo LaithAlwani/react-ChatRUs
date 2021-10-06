@@ -1,13 +1,9 @@
 import {
-  Avatar,
   Box,
-  Card,
-  CardContent,
   Container,
   IconButton,
   InputAdornment,
   TextField,
-  Typography,
 } from "@mui/material";
 import { useContext, useEffect, useRef, useState } from "react";
 import UserContext from "../utils/UserContext";
@@ -15,23 +11,22 @@ import SendIcon from "@mui/icons-material/Send";
 import {
   collection,
   addDoc,
-  doc,
   onSnapshot,
   serverTimestamp,
   orderBy,
-  limit,
   query,
 } from "@firebase/firestore";
-import { db } from "../firebase/config";
+import { db, auth } from "../firebase/config";
 
 import "../styles/chat.css";
+import Message from "../components/Message";
 
 export default function Chat() {
   const { user } = useContext(UserContext);
   const [message, setMessage] = useState("");
   const [messages, setMessges] = useState([]);
 
-  const scrollBottom = useRef()
+  const scrollBottom = useRef();
 
   const handleChange = (e) => {
     setMessage(e.target.value);
@@ -39,46 +34,38 @@ export default function Chat() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { uid, photoURL } = auth.currentUser;
     addDoc(collection(db, "messages"), {
       text: message,
-      userId: user.uid,
-      username: user.displayName,
       createdAt: serverTimestamp(),
+      uid,
+      photoURL,
     }).then((docRef) => {
       console.log("messages sent with id: " + docRef.id);
       setMessage("");
-      scrollBottom.current.scrollIntoView({behavior:"smooth"})
+      scrollBottom.current.scrollIntoView();
     });
   };
 
   useEffect(() => {
-    
-    const q= query(collection(db, "messages"), orderBy("createdAt"))
+    const q = query(collection(db, "messages"), orderBy("createdAt"));
     onSnapshot(q, (querySnapshot) => {
-      
       const msgArr = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc)
+        console.log(doc);
         msgArr.push(doc.data());
       });
       setMessges(msgArr);
-      {scrollBottom.current.scrollIntoView({behavior:"smooth"})}
+      scrollBottom.current.scrollIntoView();
     });
-    
   }, []);
   return (
     <Container>
       <div>{!user && <h1>please login ... </h1>}</div>
       <Box className="chat-window">
         {messages.length > 0 &&
-          
-          messages.map((msg) => (
-            <Card className="chat-card">
-              <Typography variant="subtitle2" sx={{mb:2}}>{msg.username}</Typography>
-              <Typography>{msg.text}</Typography>
-            </Card>
-          ))}
-        <div ref={scrollBottom}></div>
+          messages.map((msg) => <Message key={msg.id} msg={msg} />)}
+        <div ref={scrollBottom}>here</div>
       </Box>
       <Box
         component="form"
@@ -93,7 +80,6 @@ export default function Chat() {
           fullWidth
           value={message}
           onChange={handleChange}
-          
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

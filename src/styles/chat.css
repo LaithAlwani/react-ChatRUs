@@ -1,14 +1,19 @@
-.chat-window{
-    margin-bottom: 2rem;
-    height: 65vh;
-    overflow: auto;
+.chat-window {
+  margin-bottom: 1rem;
+  max-height: 75vh;
+  overflow: auto;
 }
 
-.chat-card{
-    background: orange !important;
-    margin: 1rem;
-    width: fit-content;
-    max-width: 80%;
-    padding: 1rem;
+.chat-card {
+  margin: 1rem;
+  width: fit-content;
+  max-width: 80%;
+  padding: 1rem;
 }
 
+.received {
+  background: linear-gradient(45deg, #ad82fd 50%, #e8afff 90%);
+}
+.sent {
+  background: linear-gradient(45deg, #ff7b00 50%, #f8d406 90%);
+}

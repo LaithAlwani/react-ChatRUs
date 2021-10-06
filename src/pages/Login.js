@@ -18,14 +18,13 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import GoogleIcon from "@mui/icons-material/Google";
 
-import { auth, storage } from "../firebase/config";
+import { auth } from "../firebase/config";
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "@firebase/auth";
 import UserContext from "../utils/UserContext";
-import { getDownloadURL, ref } from "@firebase/storage";
 
 export default function Login() {
   let history = useHistory();
@@ -59,10 +58,6 @@ export default function Login() {
     signInWithEmailAndPassword(auth, loginInfo.email, loginInfo.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        // const imageRef = ref(storage, `profile-images/${user.photoURL}`);
-        // getDownloadURL(imageRef).then((imgURL) => {
-        //   user.photoURL = imgURL;
-        // });
         sessionStorage.setItem("currentUser", JSON.stringify(user));
         setUser(user);
         history.push("/chat");
