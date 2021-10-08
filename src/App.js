@@ -8,11 +8,19 @@ import Signup from "./pages/Signup";
 import UserContext from "./utils/UserContext";
 import Profile from "./pages/Profile";
 import NoMatch from "./pages/NoMatch";
+import AOS from "aos"
+import "aos/dist/aos.css"
 
 function App() {
   const [user, setUser] = useState();
 
   useEffect(() => {
+    AOS.init({
+      offset: 200,
+      duration: 500,
+      easing: 'linear',
+      delay: 100,
+    })
     if (sessionStorage.getItem("currentUser") || user) {
       setUser(JSON.parse(sessionStorage.getItem("currentUser")))
       
